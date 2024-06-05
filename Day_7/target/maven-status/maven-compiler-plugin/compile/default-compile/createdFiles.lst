@@ -1,0 +1,12 @@
+org\example\dto\JobDto.class
+org\example\dto\JobFilterDto.class
+org\example\MyResource.class
+org\example\controller\JobController.class
+org\example\exceptions\DataNotFoundException.class
+org\example\dto\LinkDto.class
+org\example\exceptions\SQLExceptionMapper.class
+org\example\dto\ErrorMessage.class
+org\example\dao\jobDAO.class
+org\example\controller\JobController$1.class
+org\example\models\Job.class
+org\example\exceptions\DataNotFoundExceptionMapper.class
