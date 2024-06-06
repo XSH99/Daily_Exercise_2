@@ -35,6 +35,7 @@ public class CSVBodyWriter implements MessageBodyWriter {
         }
     }
 
+
     private static String createCsvRow(Object o) {
         String row = "";
         Field[] fields = o.getClass().getDeclaredFields();

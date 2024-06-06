@@ -1,5 +1,6 @@
 package org.example;
 
+
 import jakarta.inject.Singleton;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;

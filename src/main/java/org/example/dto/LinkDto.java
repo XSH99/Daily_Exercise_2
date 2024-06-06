@@ -10,6 +10,7 @@ public class LinkDto {
 
     public String getRel() {return rel;}
 
+
     public void setLink(String link) {this.link = link;}
 
     public void setRel(String rel) {this.rel = rel;}

@@ -7,6 +7,7 @@ import jakarta.ws.rs.ext.Provider;
 
 import java.io.IOException;
 
+
 public class LoggingFilter  implements ContainerRequestFilter, ContainerResponseFilter {
 
 

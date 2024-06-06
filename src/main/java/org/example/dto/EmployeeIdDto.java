@@ -10,6 +10,7 @@ public class EmployeeIdDto {
         return deptCode;
     }
 
+
     public void setDeptCode(String deptCode) {
         this.deptCode = deptCode;
     }
