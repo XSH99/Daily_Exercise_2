@@ -1,13 +1,16 @@
 package org.example.controller;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.core.*;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.example.dao.jobDAO;
+import org.example.dto.EmployeeIdDto;
 import org.example.dto.JobDto;
 import org.example.dto.JobFilterDto;
 import org.example.exceptions.DataNotFoundException;
+import org.example.mappers.JobMapper;
 import org.example.models.Job;
 
 import java.net.URI;
@@ -18,9 +21,13 @@ import java.util.ArrayList;
 @Path("/JOB")
 
 public class JobController {
-    jobDAO dao = new jobDAO();
+
+
+    @Inject jobDAO dao ;
     @Context UriInfo uriInfo;
     @Context HttpHeaders headers;
+
+
 
 
 //    @GET
@@ -102,17 +109,19 @@ public class JobController {
             Job job = dao.selectJobs(jobId);
 
             if (job == null) {
-                throw new DataNotFoundException("Job with ID " + jobId + " not found");
+                throw new DataNotFoundException("Job with ID " + job + " not found");
             }
-            JobDto dto = new JobDto();
-            dto.setJob_id(job.getJob_id());
-            dto.setMax_salary(job.getMax_salary());
-            dto.setMin_salary(job.getMin_salary());
-            dto.setJob_title(job.getJob_title());
+//            dto.setJob_id(job.getJob_id());
+//            dto.setMax_salary(job.getMax_salary());
+//            dto.setMin_salary(job.getMin_salary());
+//            dto.setJob_title(job.getJob_title());
+
+            JobDto dto = JobMapper.INSTANCE.toJobDto(job);
+
             addLinks(dto);
             return Response.ok(dto).build();
         } catch (Exception e) {
-            throw new RuntimeException("Error getting job with ID " + jobId, e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -163,16 +172,37 @@ public class JobController {
 //        }
 //    }
 
+    // befor add mapper
+//    @POST
+//    @Consumes(MediaType.APPLICATION_XML)
+//    public Response insertJob(Job job) {
+//
+//        try {
+//            dao.setInsertJobs(job);
+//            URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(job.getJob_id())).build();
+//            return Response.created(uri).build();
+//        } catch (Exception e) {
+//            throw new RuntimeException("Error inserting job", e);
+//        }
+//    }
+
+
     @POST
-    @Consumes(MediaType.APPLICATION_XML)
-    public Response insertJob(Job job) {
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response insertJob(JobDto dto) {
 
         try {
+            Job job = JobMapper.INSTANCE.toModel(dto);
             dao.setInsertJobs(job);
-            URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(job.getJob_id())).build();
-            return Response.created(uri).build();
+            NewCookie cookie = (new NewCookie.Builder("username")).value("OOOOO").build();
+            URI uri = uriInfo.getAbsolutePathBuilder().path(job.getJob_id() + "").build();
+            return Response
+                    .created(uri)
+                    .cookie(cookie)
+                    .header("Created by", "Wael")
+                    .build();
         } catch (Exception e) {
-            throw new RuntimeException("Error inserting job", e);
+            throw new RuntimeException(e);
         }
     }
 

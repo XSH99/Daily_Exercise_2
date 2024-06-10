@@ -3,12 +3,16 @@ package org.example.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class Job {
 
     private String job_title;
     private int job_id;
     private double min_salary;
     private double max_salary;
+
+    public Job() {
+    }
 
     public Job(String job_title, int job_id, double min_salary, double max_salary){
 
@@ -53,6 +57,8 @@ public class Job {
     public double getMax_salary() {
         return max_salary;
     }
+
+
 
     public Job(ResultSet rs) throws SQLException {
         job_id = rs.getInt("job_id");
