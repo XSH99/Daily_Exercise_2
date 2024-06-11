@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class jobDAO {
 
-    private static final String URL = "jdbc:sqlite:C:\\Users\\dev\\IdeaProjects\\Day_4\\src\\main\\java\\org\\example\\hr.db";
+    private static final String URL = "jdbc:sqlite:C:\\Users\\dev\\Downloads\\hr.db";
     private static final String SELECT_ALL_JOBS = "select * from Jobs";
     private static final String SELECT_ONE_JOBS = "select * from Jobs where job_id = ?";
     private static final String INSERT_JOBS = "insert into Jobs values (?, ?, ? ,?)";
@@ -38,10 +38,10 @@ public class jobDAO {
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection(URL);
         PreparedStatement st = conn.prepareStatement(UPDATE_JOBS);
-        st.setInt(1, d.getJob_id());
-        st.setString(2, d.getJob_title());
-        st.setDouble(3, d.getMin_salary());
-        st.setDouble(4, d.getMax_salary());
+        st.setInt(4, d.getJob_id());
+        st.setString(1, d.getJob_title());
+        st.setDouble(2, d.getMin_salary());
+        st.setDouble(3, d.getMax_salary());
         st.executeUpdate();
     }
 
